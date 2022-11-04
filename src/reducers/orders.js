@@ -1,18 +1,6 @@
 import { initialState } from '../db.js';
 import { createStore } from 'redux';
 
-//action
-// const addItem = () => {
-//     return {
-//         type: "ADD_ORDERS"
-//     }
-// }
-// const editItem = () => {
-//     return {
-//         type: "EDIT_ORDERS"
-//     }
-// }
-
 //Reduser
 const ordersReducer = (state = {}, action) => {
     switch (action.type) {
@@ -58,7 +46,7 @@ store.dispatch({
 store.dispatch({
     type: 'EDIT_ORDERS',
     payload: {
-        id: '62',
+        id: '12',
         items: 'ReplaceItems',
         user: 'ReplaceUser'
     }

@@ -982,6 +982,7 @@ var ordersReducer = function ordersReducer() {
         var existingItems = state.orders.find(function (item) {
           return item.id === action.payload.id;
         });
+        console.log('fdvd', existingItems);
         if (existingItems) {
           Object.assign(existingItems, action.payload);
           return _objectSpread({}, state);
@@ -1009,7 +1010,7 @@ store.dispatch({
 store.dispatch({
   type: 'EDIT_ORDERS',
   payload: {
-    id: '62',
+    id: '12',
     items: 'ReplaceItems',
     user: 'ReplaceUser'
   }
@@ -1058,7 +1059,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49616" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62449" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
