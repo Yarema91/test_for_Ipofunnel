@@ -883,6 +883,18 @@ var _redux = require("redux");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+//action
+var addItem = function addItem() {
+  return {
+    type: "ADD_SHOP"
+  };
+};
+var editItem = function editItem() {
+  return {
+    type: "EDIT_SHOP"
+  };
+};
+
 //Reduser
 var shopReducer = function shopReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -897,11 +909,11 @@ var shopReducer = function shopReducer() {
       }
     case 'EDIT_SHOP':
       {
-        var existingUser = state.shop.find(function (item) {
+        var existingShop = state.shop.find(function (item) {
           return item.id === action.payload.id;
         });
-        if (existingUser) {
-          Object.assign(existingUser, action.payload);
+        if (existingShop) {
+          Object.assign(existingShop, action.payload);
           return _objectSpread({}, state);
         }
       }
@@ -921,7 +933,7 @@ store.dispatch({
   payload: {
     id: '622',
     itemName: 'CreateName',
-    count: 'Createcount'
+    count: 'CreateСount'
   }
 });
 store.dispatch({
@@ -934,8 +946,76 @@ store.dispatch({
 });
 console.log(store.getState());
 },{"../db.js":"src/db.js","redux":"node_modules/redux/es/redux.js"}],"src/reducers/orders.js":[function(require,module,exports) {
+"use strict";
 
-},{}],"src/reducers/index.js":[function(require,module,exports) {
+var _db = require("../db.js");
+var _redux = require("redux");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+//action
+// const addItem = () => {
+//     return {
+//         type: "ADD_ORDERS"
+//     }
+// }
+// const editItem = () => {
+//     return {
+//         type: "EDIT_ORDERS"
+//     }
+// }
+
+//Reduser
+var ordersReducer = function ordersReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  switch (action.type) {
+    case 'ADD_ORDERS':
+      {
+        var newItem = action.payload;
+        return _objectSpread(_objectSpread({}, state), {}, {
+          orders: state.orders.concat(newItem)
+        });
+      }
+    case 'EDIT_ORDERS':
+      {
+        var existingItems = state.orders.find(function (item) {
+          return item.id === action.payload.id;
+        });
+        if (existingItems) {
+          Object.assign(existingItems, action.payload);
+          return _objectSpread({}, state);
+        }
+      }
+    default:
+      return state;
+  }
+  ;
+};
+var store = (0, _redux.createStore)(ordersReducer, _db.initialState);
+store.subscribe(function () {
+  console.log("Listener orders called");
+});
+
+//Dispatch
+store.dispatch({
+  type: 'ADD_ORDERS',
+  payload: {
+    id: '72',
+    items: 'CreateItems',
+    user: 'CreateUser'
+  }
+});
+store.dispatch({
+  type: 'EDIT_ORDERS',
+  payload: {
+    id: '62',
+    items: 'ReplaceItems',
+    user: 'ReplaceUser'
+  }
+});
+console.log(store.getState());
+},{"../db.js":"src/db.js","redux":"node_modules/redux/es/redux.js"}],"src/reducers/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

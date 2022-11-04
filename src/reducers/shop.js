@@ -1,6 +1,17 @@
 import { initialState } from '../db.js';
 import { createStore } from 'redux';
 
+//action
+const addItem = () => {
+    return {
+        type: "ADD_SHOP"
+    }
+}
+const editItem = () => {
+    return {
+        type: "EDIT_SHOP"
+    }
+}
 
 //Reduser
 const shopReducer = (state = {}, action) => {
@@ -14,9 +25,9 @@ const shopReducer = (state = {}, action) => {
         }
 
         case 'EDIT_SHOP': {
-            const existingUser = state.shop.find(item => item.id === action.payload.id);
-            if (existingUser) {
-                Object.assign(existingUser, action.payload);
+            const existingShop = state.shop.find(item => item.id === action.payload.id);
+            if (existingShop) {
+                Object.assign(existingShop, action.payload);
                 return {
                     ...state
                 }
@@ -40,7 +51,7 @@ store.dispatch({
     payload: {
         id: '622',
         itemName: 'CreateName',
-        count: 'Createcount'
+        count: 'CreateСount'
 
     }
 });
